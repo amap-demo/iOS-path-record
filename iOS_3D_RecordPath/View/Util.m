@@ -17,7 +17,7 @@
     
     if (dp.y == 0)
     {
-        return dp.x < 0? 270.f:0.f;
+        return dp.x < 0? 270.f:90.f;
     }
     
     double dir = atan(dp.x/dp.y) * 180.f / M_PI;
