@@ -6,8 +6,8 @@
 //  Copyright © 2016年 FENGSHENG. All rights reserved.
 //
 
+#import <MAMapKit/MAConfig.h>
 #import <MAMapKit/MATraceManager.h>
-
 @interface MATracePoint (Coding)<NSCoding>
 
 @end

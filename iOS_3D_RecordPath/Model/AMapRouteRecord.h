@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 FENGSHENG. All rights reserved.
 //
 
+#import <MAMapKit/MAConfig.h>
 #import <Foundation/Foundation.h>
 #import <MAMapKit/MATraceManager.h>
 
