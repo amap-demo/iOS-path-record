@@ -6,6 +6,7 @@
 //  Copyright © 2016年 FENGSHENG. All rights reserved.
 //
 
+#import <MAMapKit/MAMapKit.h>
 #import "MATracePoint+Coding.h"
 
 @implementation MATracePoint (Coding)

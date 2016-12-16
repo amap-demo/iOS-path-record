@@ -8,6 +8,7 @@
 
 #import <MAMapKit/MAConfig.h>
 #import <Foundation/Foundation.h>
+#import <MAMapKit/MAMapKit.h>
 #import <MAMapKit/MATraceManager.h>
 
 @import CoreLocation;
