@@ -71,7 +71,7 @@
     
     if (_pointCount < 2)
     {
-        NSLog(@"points count must greater than 2");
+//        NSLog(@"points count must greater than 2");
         return;
     }
     

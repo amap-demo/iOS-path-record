@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6AF14B091E2CB11F006075DF /* car1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AF14B081E2CB11F006075DF /* car1@2x.png */; };
 		744F254E1B945F950095CB4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F254D1B945F950095CB4F /* main.m */; };
 		744F25511B945F950095CB4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F25501B945F950095CB4F /* AppDelegate.m */; };
 		744F25591B945F950095CB4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744F25581B945F950095CB4F /* Images.xcassets */; };
@@ -23,15 +24,11 @@
 		744F25B81B9465570095CB4F /* MAMutablePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F25B51B9465570095CB4F /* MAMutablePolyline.m */; };
 		744F25B91B9465570095CB4F /* MAMutablePolylineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F25B71B9465570095CB4F /* MAMutablePolylineRenderer.m */; };
 		814D1E871DBDED4E00D604DD /* MATracePoint+Coding.m in Sources */ = {isa = PBXBuildFile; fileRef = 814D1E861DBDED4E00D604DD /* MATracePoint+Coding.m */; };
-		814D1E891DBDF28A00D604DD /* car@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 814D1E881DBDF28A00D604DD /* car@2x.png */; };
-		81F8106B1DB89BA900D4804D /* CACoordLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F810641DB89BA900D4804D /* CACoordLayer.m */; };
-		81F8106C1DB89BA900D4804D /* MovingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F810661DB89BA900D4804D /* MovingAnnotationView.m */; };
-		81F8106D1DB89BA900D4804D /* TracingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F810681DB89BA900D4804D /* TracingPoint.m */; };
-		81F8106E1DB89BA900D4804D /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F8106A1DB89BA900D4804D /* Util.m */; };
 		A4FC031F18B21F92560D7ED6 /* libPods-iOS_3D_RecordPath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9148D4E5E53B183BB90FE701 /* libPods-iOS_3D_RecordPath.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6AF14B081E2CB11F006075DF /* car1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car1@2x.png"; sourceTree = "<group>"; };
 		744F25481B945F950095CB4F /* iOS_3D_RecordPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_3D_RecordPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744F254C1B945F950095CB4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744F254D1B945F950095CB4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,15 +61,6 @@
 		744F25B71B9465570095CB4F /* MAMutablePolylineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAMutablePolylineRenderer.m; sourceTree = "<group>"; };
 		814D1E851DBDED4E00D604DD /* MATracePoint+Coding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MATracePoint+Coding.h"; sourceTree = "<group>"; };
 		814D1E861DBDED4E00D604DD /* MATracePoint+Coding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MATracePoint+Coding.m"; sourceTree = "<group>"; };
-		814D1E881DBDF28A00D604DD /* car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car@2x.png"; sourceTree = "<group>"; };
-		81F810631DB89BA900D4804D /* CACoordLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CACoordLayer.h; sourceTree = "<group>"; };
-		81F810641DB89BA900D4804D /* CACoordLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CACoordLayer.m; sourceTree = "<group>"; };
-		81F810651DB89BA900D4804D /* MovingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingAnnotationView.h; sourceTree = "<group>"; };
-		81F810661DB89BA900D4804D /* MovingAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovingAnnotationView.m; sourceTree = "<group>"; };
-		81F810671DB89BA900D4804D /* TracingPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TracingPoint.h; sourceTree = "<group>"; };
-		81F810681DB89BA900D4804D /* TracingPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TracingPoint.m; sourceTree = "<group>"; };
-		81F810691DB89BA900D4804D /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
-		81F8106A1DB89BA900D4804D /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		9148D4E5E53B183BB90FE701 /* libPods-iOS_3D_RecordPath.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS_3D_RecordPath.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9AA142133BBB20AC8299981 /* Pods-iOS_3D_RecordPath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_3D_RecordPath.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_3D_RecordPath/Pods-iOS_3D_RecordPath.release.xcconfig"; sourceTree = "<group>"; };
 		E710F864F98182D3E2DCDB7B /* Pods-iOS_3D_RecordPath.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_3D_RecordPath.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_3D_RecordPath/Pods-iOS_3D_RecordPath.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,7 +113,7 @@
 				744F259A1B94612D0095CB4F /* View */,
 				744F25B21B9461CF0095CB4F /* Configuration */,
 				744F25581B945F950095CB4F /* Images.xcassets */,
-				814D1E881DBDF28A00D604DD /* car@2x.png */,
+				6AF14B081E2CB11F006075DF /* car1@2x.png */,
 				744F255A1B945F950095CB4F /* LaunchScreen.xib */,
 				744F254B1B945F950095CB4F /* Supporting Files */,
 			);
@@ -174,7 +162,6 @@
 		744F259A1B94612D0095CB4F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				81F8106F1DB89BAF00D4804D /* MovingAnnotationView */,
 				744F25B41B9465570095CB4F /* MAMutablePolyline.h */,
 				744F25B51B9465570095CB4F /* MAMutablePolyline.m */,
 				744F25B61B9465570095CB4F /* MAMutablePolylineRenderer.h */,
@@ -195,21 +182,6 @@
 				744F25B31B9461CF0095CB4F /* APIKey.h */,
 			);
 			path = Configuration;
-			sourceTree = "<group>";
-		};
-		81F8106F1DB89BAF00D4804D /* MovingAnnotationView */ = {
-			isa = PBXGroup;
-			children = (
-				81F810631DB89BA900D4804D /* CACoordLayer.h */,
-				81F810641DB89BA900D4804D /* CACoordLayer.m */,
-				81F810651DB89BA900D4804D /* MovingAnnotationView.h */,
-				81F810661DB89BA900D4804D /* MovingAnnotationView.m */,
-				81F810671DB89BA900D4804D /* TracingPoint.h */,
-				81F810681DB89BA900D4804D /* TracingPoint.m */,
-				81F810691DB89BA900D4804D /* Util.h */,
-				81F8106A1DB89BA900D4804D /* Util.m */,
-			);
-			name = MovingAnnotationView;
 			sourceTree = "<group>";
 		};
 		F792F5A57857337DB2FD7B35 /* Frameworks */ = {
@@ -287,9 +259,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				814D1E891DBDF28A00D604DD /* car@2x.png in Resources */,
 				744F255C1B945F950095CB4F /* LaunchScreen.xib in Resources */,
 				744F25591B945F950095CB4F /* Images.xcassets in Resources */,
+				6AF14B091E2CB11F006075DF /* car1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +320,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81F8106E1DB89BA900D4804D /* Util.m in Sources */,
 				744F25511B945F950095CB4F /* AppDelegate.m in Sources */,
 				744F25B91B9465570095CB4F /* MAMutablePolylineRenderer.m in Sources */,
 				744F25A81B94612D0095CB4F /* SystemInfo.m in Sources */,
@@ -361,11 +332,8 @@
 				744F258F1B9461210095CB4F /* MainViewController.m in Sources */,
 				744F25901B9461210095CB4F /* RecordViewController.m in Sources */,
 				744F25B81B9465570095CB4F /* MAMutablePolyline.m in Sources */,
-				81F8106D1DB89BA900D4804D /* TracingPoint.m in Sources */,
 				744F25AC1B94612D0095CB4F /* SystemInfoView.m in Sources */,
 				744F25A51B94612D0095CB4F /* FileHelper.m in Sources */,
-				81F8106C1DB89BA900D4804D /* MovingAnnotationView.m in Sources */,
-				81F8106B1DB89BA900D4804D /* CACoordLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

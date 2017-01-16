@@ -10,13 +10,11 @@
 #import "DisplayViewController.h"
 #import "MAMutablePolylineRenderer.h"
 #import "AMapRouteRecord.h"
-#import "MovingAnnotationView.h"
-#import "TracingPoint.h"
-#import "Util.h"
 
-@interface DisplayViewController()<MAMapViewDelegate, MovingAnnotationViewDelegate>
+@interface DisplayViewController()<MAMapViewDelegate>
 {
-    NSMutableArray *_tracking;
+    CLLocationCoordinate2D *_traceCoordinate;
+    NSUInteger _traceCout;
     CFTimeInterval _duration;
 }
 
@@ -24,7 +22,7 @@
 
 @property (nonatomic, strong) MAMapView *mapView;
 
-@property (nonatomic, strong) MAPointAnnotation *myLocation;
+@property (nonatomic, strong) MAAnimatedAnnotation *myLocation;
 
 @property (nonatomic, assign) BOOL isPlaying;
 
@@ -68,7 +66,7 @@
 
 #pragma mark - movingAnnotationViewDelegate
 
-- (void)didMovingAnnotationStop:(MovingAnnotationView *)view
+- (void)didMovingAnnotationStop:(MAAnnotationView *)view
 {
     if (self.isPlaying)
     {
@@ -84,13 +82,13 @@
         
         static NSString *annotationIdentifier = @"myLcoationIdentifier";
         
-        MovingAnnotationView *annotationView = (MovingAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
         if (annotationView == nil)
         {
-            annotationView = [[MovingAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
         }
         
-        annotationView.image = [UIImage imageNamed:@"car"];
+        annotationView.image = [UIImage imageNamed:@"car1"];
         annotationView.canShowCallout = NO;
         
         return annotationView;
@@ -151,7 +149,7 @@
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon_stop.png"];
         if (self.myLocation == nil)
         {
-            self.myLocation = [[MAPointAnnotation alloc] init];
+            self.myLocation = [[MAAnimatedAnnotation alloc] init];
             self.myLocation.title = @"AMap";
             self.myLocation.coordinate = [self.record startLocation].coordinate;
             
@@ -161,21 +159,18 @@
             [self.mapView selectAnnotation:self.myLocation animated:NO];
         }
         
-        MovingAnnotationView * carView = (MovingAnnotationView *)[self.mapView viewForAnnotation:self.myLocation];
-        carView.mapView = self.mapView;
-        carView.animationDelegate = self;
-        [carView addTrackingAnimationIgnoringCourseForPoints:_tracking duration:_duration];
-
+        [self.myLocation addMoveAnimationWithKeyCoordinates:_traceCoordinate count:_traceCout withDuration:_duration withName:nil completeCallback:^(BOOL isFinished) {
+            
+        }];
     }
     else
     {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon_play.png"];
         
-        MAAnnotationView *view = [self.mapView viewForAnnotation:self.myLocation];
-        if (view != nil)
-        {
-            [view.layer removeAllAnimations];
+        for(MAAnnotationMoveAnimation *animation in [self.myLocation allMoveAnimations]) {
+            [animation cancel];
         }
+        [self.myLocation setCoordinate:_traceCoordinate[0]];
     }
 }
 
@@ -237,27 +232,20 @@
 - (void)initDisplayTrackingCoords
 {
     NSArray<MATracePoint *> *points = self.record.tracedLocations;
+    _traceCout = points.count;
     
-    if (points.count < 2)
+    if (_traceCout < 2)
     {
         return;
     }
     
-    _tracking = [NSMutableArray array];
-    for (int i = 0; i < points.count - 1; i++)
-    {
-        TracingPoint * tp = [[TracingPoint alloc] init];
-        tp.coordinate = CLLocationCoordinate2DMake(points[i].latitude, points[i].longitude);
-//        tp.course = [Util calculateCourseFromCoordinate:CLLocationCoordinate2DMake(points[i].latitude, points[i].longitude) to:CLLocationCoordinate2DMake(points[i+1].latitude, points[i+1].longitude)];
-        
-        NSLog(@"tp.course :%f", tp.course);
-        [_tracking addObject:tp];
-    }
+    CLLocationCoordinate2D *coords = malloc(sizeof(CLLocationCoordinate2D) * _traceCout);
     
-    TracingPoint *lastTp = [[TracingPoint alloc] init];
-    lastTp.coordinate = CLLocationCoordinate2DMake(points.lastObject.latitude, points.lastObject.longitude);
-    lastTp.course = ((TracingPoint *)[_tracking lastObject]).course;
-    [_tracking addObject:lastTp];
+    for (int i = 0; i < _traceCout; ++i)
+    {
+        coords[i] = CLLocationCoordinate2DMake(points[i].latitude, points[i].longitude);
+    }
+    _traceCoordinate = coords;
 }
 
 #pragma mark - Life Cycle
@@ -273,6 +261,15 @@
     [self initToolBar];
     
     [self showRoute];
+}
+
+- (void)dealloc
+{
+    if (_traceCoordinate)
+    {
+        free(_traceCoordinate);
+        _traceCoordinate = NULL;
+    }
 }
 
 @end
