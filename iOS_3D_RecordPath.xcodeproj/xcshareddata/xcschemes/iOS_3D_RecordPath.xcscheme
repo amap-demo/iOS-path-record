@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6AF14B0F1E2CBA47006075DF"
+               BuildableName = "iOS_3D_RecordPathUITests.xctest"
+               BlueprintName = "iOS_3D_RecordPathUITests"
+               ReferencedContainer = "container:iOS_3D_RecordPath.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

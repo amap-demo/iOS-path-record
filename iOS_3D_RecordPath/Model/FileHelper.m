@@ -49,7 +49,7 @@
 
 + (NSString *)baseDir
 {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     path = [path stringByAppendingPathComponent:@"pathRecords"];
     

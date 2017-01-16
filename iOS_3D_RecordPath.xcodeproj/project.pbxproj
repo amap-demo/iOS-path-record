@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6AF14B091E2CB11F006075DF /* car1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AF14B081E2CB11F006075DF /* car1@2x.png */; };
+		6AF14B0B1E2CB74D006075DF /* temp_20161024_152059 in Resources */ = {isa = PBXBuildFile; fileRef = 6AF14B0A1E2CB74D006075DF /* temp_20161024_152059 */; };
+		6AF14B131E2CBA47006075DF /* iOS_3D_RecordPathUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AF14B121E2CBA47006075DF /* iOS_3D_RecordPathUITests.m */; };
 		744F254E1B945F950095CB4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F254D1B945F950095CB4F /* main.m */; };
 		744F25511B945F950095CB4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F25501B945F950095CB4F /* AppDelegate.m */; };
 		744F25591B945F950095CB4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744F25581B945F950095CB4F /* Images.xcassets */; };
@@ -27,8 +29,22 @@
 		A4FC031F18B21F92560D7ED6 /* libPods-iOS_3D_RecordPath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9148D4E5E53B183BB90FE701 /* libPods-iOS_3D_RecordPath.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6AF14B151E2CBA47006075DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 744F25401B945F950095CB4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 744F25471B945F950095CB4F;
+			remoteInfo = iOS_3D_RecordPath;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6AF14B081E2CB11F006075DF /* car1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car1@2x.png"; sourceTree = "<group>"; };
+		6AF14B0A1E2CB74D006075DF /* temp_20161024_152059 */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = temp_20161024_152059; sourceTree = "<group>"; };
+		6AF14B101E2CBA47006075DF /* iOS_3D_RecordPathUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOS_3D_RecordPathUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AF14B121E2CBA47006075DF /* iOS_3D_RecordPathUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOS_3D_RecordPathUITests.m; sourceTree = "<group>"; };
+		6AF14B141E2CBA47006075DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744F25481B945F950095CB4F /* iOS_3D_RecordPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_3D_RecordPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744F254C1B945F950095CB4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744F254D1B945F950095CB4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -67,6 +83,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6AF14B0D1E2CBA47006075DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744F25451B945F950095CB4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,10 +110,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6AF14B111E2CBA47006075DF /* iOS_3D_RecordPathUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6AF14B121E2CBA47006075DF /* iOS_3D_RecordPathUITests.m */,
+				6AF14B141E2CBA47006075DF /* Info.plist */,
+			);
+			path = iOS_3D_RecordPathUITests;
+			sourceTree = "<group>";
+		};
 		744F253F1B945F950095CB4F = {
 			isa = PBXGroup;
 			children = (
 				744F254A1B945F950095CB4F /* iOS_3D_RecordPath */,
+				6AF14B111E2CBA47006075DF /* iOS_3D_RecordPathUITests */,
 				744F25491B945F950095CB4F /* Products */,
 				23139EFBB1B9D9D24CB9431A /* Pods */,
 				F792F5A57857337DB2FD7B35 /* Frameworks */,
@@ -101,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				744F25481B945F950095CB4F /* iOS_3D_RecordPath.app */,
+				6AF14B101E2CBA47006075DF /* iOS_3D_RecordPathUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +148,7 @@
 				744F25B21B9461CF0095CB4F /* Configuration */,
 				744F25581B945F950095CB4F /* Images.xcassets */,
 				6AF14B081E2CB11F006075DF /* car1@2x.png */,
+				6AF14B0A1E2CB74D006075DF /* temp_20161024_152059 */,
 				744F255A1B945F950095CB4F /* LaunchScreen.xib */,
 				744F254B1B945F950095CB4F /* Supporting Files */,
 			);
@@ -195,6 +230,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6AF14B0F1E2CBA47006075DF /* iOS_3D_RecordPathUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6AF14B171E2CBA47006075DF /* Build configuration list for PBXNativeTarget "iOS_3D_RecordPathUITests" */;
+			buildPhases = (
+				6AF14B0C1E2CBA47006075DF /* Sources */,
+				6AF14B0D1E2CBA47006075DF /* Frameworks */,
+				6AF14B0E1E2CBA47006075DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6AF14B161E2CBA47006075DF /* PBXTargetDependency */,
+			);
+			name = iOS_3D_RecordPathUITests;
+			productName = iOS_3D_RecordPathUITests;
+			productReference = 6AF14B101E2CBA47006075DF /* iOS_3D_RecordPathUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		744F25471B945F950095CB4F /* iOS_3D_RecordPath */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 744F256B1B945F950095CB4F /* Build configuration list for PBXNativeTarget "iOS_3D_RecordPath" */;
@@ -224,6 +277,12 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = FENGSHENG;
 				TargetAttributes = {
+					6AF14B0F1E2CBA47006075DF = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = YMJ372W38W;
+						ProvisioningStyle = Manual;
+						TestTargetID = 744F25471B945F950095CB4F;
+					};
 					744F25471B945F950095CB4F = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = YMJ372W38W;
@@ -250,11 +309,19 @@
 			projectRoot = "";
 			targets = (
 				744F25471B945F950095CB4F /* iOS_3D_RecordPath */,
+				6AF14B0F1E2CBA47006075DF /* iOS_3D_RecordPathUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6AF14B0E1E2CBA47006075DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744F25461B945F950095CB4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +329,7 @@
 				744F255C1B945F950095CB4F /* LaunchScreen.xib in Resources */,
 				744F25591B945F950095CB4F /* Images.xcassets in Resources */,
 				6AF14B091E2CB11F006075DF /* car1@2x.png in Resources */,
+				6AF14B0B1E2CB74D006075DF /* temp_20161024_152059 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +384,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6AF14B0C1E2CBA47006075DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AF14B131E2CBA47006075DF /* iOS_3D_RecordPathUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744F25441B945F950095CB4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -339,6 +415,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6AF14B161E2CBA47006075DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 744F25471B945F950095CB4F /* iOS_3D_RecordPath */;
+			targetProxy = 6AF14B151E2CBA47006075DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		744F255A1B945F950095CB4F /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
@@ -351,6 +435,41 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6AF14B181E2CBA47006075DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = YMJ372W38W;
+				INFOPLIST_FILE = iOS_3D_RecordPathUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.autonavi.iOS-3D-RecordPathUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9b821a78-8ad6-4cf7-b6b0-31b43df04bbe";
+				PROVISIONING_PROFILE_SPECIFIER = openPlatform_development;
+				TEST_TARGET_NAME = iOS_3D_RecordPath;
+			};
+			name = Debug;
+		};
+		6AF14B191E2CBA47006075DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = YMJ372W38W;
+				INFOPLIST_FILE = iOS_3D_RecordPathUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.autonavi.iOS-3D-RecordPathUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9b821a78-8ad6-4cf7-b6b0-31b43df04bbe";
+				PROVISIONING_PROFILE_SPECIFIER = openPlatform_development;
+				TEST_TARGET_NAME = iOS_3D_RecordPath;
+			};
+			name = Release;
+		};
 		744F25691B945F950095CB4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -480,6 +599,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6AF14B171E2CBA47006075DF /* Build configuration list for PBXNativeTarget "iOS_3D_RecordPathUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6AF14B181E2CBA47006075DF /* Debug */,
+				6AF14B191E2CBA47006075DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		744F25431B945F950095CB4F /* Build configuration list for PBXProject "iOS_3D_RecordPath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
