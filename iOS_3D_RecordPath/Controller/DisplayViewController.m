@@ -159,8 +159,11 @@
             [self.mapView selectAnnotation:self.myLocation animated:NO];
         }
         
+        
+        __weak typeof(self) weakSelf = self;
         [self.myLocation addMoveAnimationWithKeyCoordinates:_traceCoordinate count:_traceCout withDuration:_duration withName:nil completeCallback:^(BOOL isFinished) {
             
+            [weakSelf actionPlayAndStop];
         }];
     }
     else
@@ -171,6 +174,7 @@
             [animation cancel];
         }
         [self.myLocation setCoordinate:_traceCoordinate[0]];
+        [self.myLocation setMovingDirection:0.0];
     }
 }
 
