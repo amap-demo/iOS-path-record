@@ -12,7 +12,7 @@
 
 @implementation FileHelper
 
-+ (NSMutableArray *)recordsArray
++ (NSArray *)recordsArray
 {
     NSString *path = [FileHelper baseDir];
     
@@ -43,7 +43,7 @@
             }
             
         }
-        return [NSMutableArray arrayWithArray:records];
+        return [records copy];
     }
 }
 

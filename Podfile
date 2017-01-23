@@ -6,3 +6,10 @@ target "iOS_3D_RecordPath" do
 pod 'AMap3DMap'
 
 end
+
+
+target "iOS_3D_RecordPath-swift" do
+
+pod 'AMap3DMap'
+
+end

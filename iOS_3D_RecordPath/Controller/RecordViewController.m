@@ -82,7 +82,7 @@
     self = [super init];
     if (self)
     {
-        _recordArray = [FileHelper recordsArray];
+        _recordArray = [NSMutableArray arrayWithArray:[FileHelper recordsArray]];
         if (_recordArray.count == 0)
         {
             // 如果没有数据，则添加测试数据。
@@ -94,7 +94,7 @@
             
             [NSKeyedArchiver archiveRootObject:record toFile:path];
             
-            _recordArray = [FileHelper recordsArray];
+            _recordArray = [NSMutableArray arrayWithArray:[FileHelper recordsArray]];
         }
         
     }

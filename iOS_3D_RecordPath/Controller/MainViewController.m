@@ -16,6 +16,8 @@
 #import "RecordViewController.h"
 #import "SystemInfoView.h"
 
+#define kTempTraceLocationCount 30
+
 @interface MainViewController()
 
 @property (nonatomic, strong) MAMapView *mapView;
@@ -84,7 +86,7 @@
             
             // trace
             [self.tempTraceLocations addObject:userLocation.location];
-            if (self.tempTraceLocations.count >= 30)
+            if (self.tempTraceLocations.count >= kTempTraceLocationCount)
             {
                 [self queryTraceWithLocations:self.tempTraceLocations withSaving:NO];
                 [self.tempTraceLocations removeAllObjects];
@@ -98,7 +100,7 @@
     [self.statusView showStatusWith:userLocation.location];
 }
 
-- (void)mapView:(MAMapView *)mapView  didChangeUserTrackingMode:(MAUserTrackingMode)mode animated:(BOOL)animated
+- (void)mapView:(MAMapView *)mapView didChangeUserTrackingMode:(MAUserTrackingMode)mode animated:(BOOL)animated
 {
     if (mode == MAUserTrackingModeNone)
     {
@@ -109,6 +111,7 @@
         [self.locationBtn setImage:self.imageLocated forState:UIControlStateNormal];
     }
 }
+
 - (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id<MAOverlay>)overlay
 {
     if ([overlay isKindOfClass:[MAMutablePolyline class]])
@@ -124,7 +127,7 @@
     {
         MAPolylineRenderer *view = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
         view.lineWidth = 10.0;
-        view.strokeColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
+        view.strokeColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.8];
         return view;
     }
     
@@ -357,7 +360,7 @@
 {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_play.png"] style:UIBarButtonItemStylePlain target:self action:@selector(actionRecordAndStop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_play"] style:UIBarButtonItemStylePlain target:self action:@selector(actionRecordAndStop)];
     
     UIBarButtonItem *listButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_list"] style:UIBarButtonItemStylePlain target:self action:@selector(actionShowList)];
     

@@ -32,6 +32,10 @@
 
 - (void)addLocation:(CLLocation *)location
 {
+    if (location == nil)
+    {
+        return;
+    }
     _endTime = [NSDate date];
     [self.locationsArray addObject:location];
 }

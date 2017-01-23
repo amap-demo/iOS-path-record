@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AMapRouteRecord;
 
 @interface FileHelper : NSObject
 
 + (NSString *)filePathWithName:(NSString *)name;
 
-+ (NSMutableArray *)recordsArray;
++ (NSArray<AMapRouteRecord *> *)recordsArray;
 
 + (BOOL)deleteFile:(NSString *)filename;
 

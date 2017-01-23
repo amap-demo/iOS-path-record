@@ -14,7 +14,7 @@
 @interface DisplayViewController()<MAMapViewDelegate>
 {
     CLLocationCoordinate2D *_traceCoordinate;
-    NSUInteger _traceCout;
+    NSUInteger _traceCount;
     CFTimeInterval _duration;
 }
 
@@ -61,17 +61,6 @@
     }
     
     _record = record;
-    _duration = _record.totalDuration / 1.0;
-}
-
-#pragma mark - movingAnnotationViewDelegate
-
-- (void)didMovingAnnotationStop:(MAAnnotationView *)view
-{
-    if (self.isPlaying)
-    {
-        [self actionPlayAndStop];
-    }
 }
 
 #pragma mark - mapViewDelegate
@@ -104,7 +93,6 @@
         {
             poiAnnotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
         }
-        poiAnnotationView.pinColor = MAPinAnnotationColorGreen;
         poiAnnotationView.canShowCallout = YES;
         
         return poiAnnotationView;
@@ -161,9 +149,11 @@
         
         
         __weak typeof(self) weakSelf = self;
-        [self.myLocation addMoveAnimationWithKeyCoordinates:_traceCoordinate count:_traceCout withDuration:_duration withName:nil completeCallback:^(BOOL isFinished) {
+        [self.myLocation addMoveAnimationWithKeyCoordinates:_traceCoordinate count:_traceCount withDuration:_duration withName:nil completeCallback:^(BOOL isFinished) {
             
-            [weakSelf actionPlayAndStop];
+            if (isFinished) {
+                [weakSelf actionPlayAndStop];
+            }
         }];
     }
     else
@@ -236,20 +226,22 @@
 - (void)initDisplayTrackingCoords
 {
     NSArray<MATracePoint *> *points = self.record.tracedLocations;
-    _traceCout = points.count;
+    _traceCount = points.count;
     
-    if (_traceCout < 2)
+    if (_traceCount < 2)
     {
         return;
     }
     
-    CLLocationCoordinate2D *coords = malloc(sizeof(CLLocationCoordinate2D) * _traceCout);
+    CLLocationCoordinate2D *coords = malloc(sizeof(CLLocationCoordinate2D) * _traceCount);
     
-    for (int i = 0; i < _traceCout; ++i)
+    for (int i = 0; i < _traceCount; ++i)
     {
         coords[i] = CLLocationCoordinate2DMake(points[i].latitude, points[i].longitude);
     }
+    
     _traceCoordinate = coords;
+    _duration = _record.totalDuration / 2.0;
 }
 
 #pragma mark - Life Cycle
