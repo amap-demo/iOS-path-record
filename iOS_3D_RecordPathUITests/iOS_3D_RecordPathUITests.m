@@ -51,7 +51,7 @@
     
     [element twoFingerTap];
     
-    sleep(25);
+    sleep(13);
     [displayNavigationBar.buttons[@"Records"] tap];
     [app.navigationBars[@"Records"].buttons[@"My Route"] tap];
     
