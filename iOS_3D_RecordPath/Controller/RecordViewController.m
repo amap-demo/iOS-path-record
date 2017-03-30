@@ -86,7 +86,7 @@
         if (_recordArray.count == 0)
         {
             // 如果没有数据，则添加测试数据。
-            NSString *tempPath = [[NSBundle mainBundle] pathForResource:@"temp_20161024_152059" ofType:nil];
+            NSString *tempPath = [[NSBundle mainBundle] pathForResource:@"temp_2017-03-30" ofType:nil];
             AMapRouteRecord *record = [NSKeyedUnarchiver unarchiveObjectWithFile:tempPath];
             
             NSString *name = record.title;

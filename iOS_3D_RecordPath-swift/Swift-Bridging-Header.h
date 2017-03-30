@@ -13,8 +13,6 @@
 #import <MAMapKit/MAMapKit.h>
 #import "FileHelper.h"
 #import "AMapRouteRecord.h"
-#import "MAMutablePolyline.h"
-#import "MAMutablePolylineRenderer.h"
 #import "APIKey.h"
 
 #endif /* Swift_Bridging_Header_h */

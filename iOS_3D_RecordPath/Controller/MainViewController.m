@@ -7,8 +7,6 @@
 //
 
 #import "MainViewController.h"
-#import "MAMutablePolyline.h"
-#import "MAMutablePolylineRenderer.h"
 #import "StatusView.h"
 #import "TipView.h"
 #import "AMapRouteRecord.h"
@@ -16,7 +14,7 @@
 #import "RecordViewController.h"
 #import "SystemInfoView.h"
 
-#define kTempTraceLocationCount 30
+#define kTempTraceLocationCount 20
 
 @interface MainViewController()
 
@@ -34,9 +32,7 @@
 @property (nonatomic, assign) BOOL isRecording;
 @property (atomic, assign) BOOL isSaving;
 
-@property (nonatomic, strong) MAMutablePolyline *mutablePolyline;
-
-@property (nonatomic, strong) MAMutablePolylineRenderer *mutableView;
+@property (nonatomic, strong) MAPolyline *polyline;
 
 @property (nonatomic, strong) NSMutableArray *locationsArray;
 
@@ -78,9 +74,21 @@
             
             [self.currentRecord addLocation:userLocation.location];
             
+            if (self.polyline == nil)
+            {
+                self.polyline = [MAPolyline polylineWithCoordinates:NULL count:0];
+                [self.mapView addOverlay:self.polyline];
+            }
+
+            NSUInteger count = 0;
             
-            [self.mutablePolyline appendPoint: MAMapPointForCoordinate(userLocation.location.coordinate)];
-            [self.mutableView referenceDidChange];
+            CLLocationCoordinate2D *coordinates = [self coordinatesFromLocationArray:self.locationsArray count:&count];
+            if (coordinates != NULL)
+            {
+                [self.polyline setPolylineWithCoordinates:coordinates count:count];
+                free(coordinates);
+            }
+            
             [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
             
             
@@ -114,12 +122,11 @@
 
 - (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id<MAOverlay>)overlay
 {
-    if ([overlay isKindOfClass:[MAMutablePolyline class]])
+    if (overlay == self.polyline)
     {
-        MAMutablePolylineRenderer *view = [[MAMutablePolylineRenderer alloc] initWithMutablePolyline:overlay];
+        MAPolylineRenderer *view = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
         view.lineWidth = 5.0;
         view.strokeColor = [UIColor redColor];
-        _mutableView = view;
         return view;
     }
     
@@ -156,6 +163,7 @@
             self.currentRecord = [[AMapRouteRecord alloc] init];
         }
         
+        [self.mapView removeOverlays:self.tracedPolylines];
         [self setBackgroundModeEnable:YES];
     }
     else
@@ -175,8 +183,8 @@
     self.isSaving = YES;
     [self.locationsArray removeAllObjects];
 
-    [self.mutablePolyline removeAllPoints];
-    [self.mutableView referenceDidChange];
+    [self.mapView removeOverlay:self.polyline];
+    self.polyline = nil;
     
     // 全程请求trace
     [self.mapView removeOverlays:self.tracedPolylines];
@@ -205,6 +213,27 @@
 
 #pragma mark - Utility
 
+- (CLLocationCoordinate2D *)coordinatesFromLocationArray:(NSArray *)locations count:(NSUInteger *)count
+{
+    if (locations.count == 0)
+    {
+        return NULL;
+    }
+    
+    *count = locations.count;
+    
+    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * *count);
+    
+    int i = 0;
+    for (CLLocation *location in locations)
+    {
+        coordinates[i] = location.coordinate;
+        ++i;
+    }
+    
+    return coordinates;
+}
+
 - (void)setBackgroundModeEnable:(BOOL)enable
 {
     self.mapView.pausesLocationUpdatesAutomatically = !enable;
@@ -217,6 +246,10 @@
 
 - (void)queryTraceWithLocations:(NSArray<CLLocation *> *)locations withSaving:(BOOL)saving
 {
+    if (locations.count < 2) {
+        return;
+    }
+    
     NSMutableArray *mArr = [NSMutableArray array];
     for(CLLocation *loc in locations)
     {
@@ -321,6 +354,8 @@
     
     BOOL result = [NSKeyedArchiver archiveRootObject:self.currentRecord toFile:path];
     
+    self.currentRecord = nil;
+    
     return result;
 }
 
@@ -372,11 +407,6 @@
     self.isSaving = NO;
 }
 
-- (void)initOverlay
-{
-    self.mutablePolyline = [[MAMutablePolyline alloc] initWithPoints:@[]];
-}
-
 - (void)initLocationButton
 {
     self.imageLocated = [UIImage imageNamed:@"location_yes.png"];
@@ -404,8 +434,6 @@
     
     [self initMapView];
     
-    [self initOverlay];
-    
     [self initStatusView];
     
     [self initTipView];
@@ -420,9 +448,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.mapView addOverlay:self.mutablePolyline];
-
     self.mapView.userTrackingMode = MAUserTrackingModeFollow;
 }
 

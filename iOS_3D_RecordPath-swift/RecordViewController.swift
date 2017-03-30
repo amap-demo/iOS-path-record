@@ -20,7 +20,7 @@ class RecordViewController: UIViewController, UITableViewDataSource, UITableView
         routes = FileHelper.recordsArray()
         if routes == nil || routes!.count == 0 {
             // 如果没有数据，则添加测试数据。
-            let tempPath: String? = Bundle.main.path(forResource: "temp_20161024_152059", ofType: nil)
+            let tempPath: String? = Bundle.main.path(forResource: "temp_2017-03-30", ofType: nil)
             
             if tempPath != nil {
                 let record: AMapRouteRecord? = NSKeyedUnarchiver.unarchiveObject(withFile: tempPath!) as? AMapRouteRecord

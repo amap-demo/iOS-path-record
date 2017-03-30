@@ -8,7 +8,6 @@
 //
 
 #import "DisplayViewController.h"
-#import "MAMutablePolylineRenderer.h"
 #import "AMapRouteRecord.h"
 
 @interface DisplayViewController()<MAMapViewDelegate>
@@ -214,7 +213,7 @@
     MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coords count:tracePoints.count];
     [self.mapView addOverlay:polyline];
     
-    [self.mapView showOverlays:self.mapView.overlays edgePadding:UIEdgeInsetsMake(30, 50, 30, 50) animated:NO];
+    [self.mapView showOverlays:self.mapView.overlays edgePadding:UIEdgeInsetsMake(200, 50, 200, 50) animated:NO];
     
     if (coords)
     {
@@ -250,6 +249,7 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"Display";
     
     [self initMapView];

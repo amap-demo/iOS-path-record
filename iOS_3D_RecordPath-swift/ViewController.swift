@@ -24,8 +24,7 @@ class ViewController: UIViewController, MAMapViewDelegate {
     var statusView: StatusView!
     var currentRecord: AMapRouteRecord?
     
-    var mutablePolyline: MAMutablePolyline?
-    var mutableView: MAMutablePolylineRenderer?
+    var polyline: MAPolyline?
     
     var tracedPolylines: Array<MAPolyline> = []
     var tempTraceLocations: Array<CLLocation> = []
@@ -39,13 +38,11 @@ class ViewController: UIViewController, MAMapViewDelegate {
         initToolBar()
         initMapView()
         initTipView()
-        initOverlay()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        mapView.add(mutablePolyline)
         mapView.showsUserLocation = true
         mapView.userTrackingMode = MAUserTrackingMode.follow
     }
@@ -113,10 +110,6 @@ class ViewController: UIViewController, MAMapViewDelegate {
         
     }
     
-    func initOverlay() {
-        self.mutablePolyline = MAMutablePolyline(points: [])
-    }
-    
     //MARK:- Actions
     
     func stopLocationIfNeeded() {
@@ -182,8 +175,9 @@ class ViewController: UIViewController, MAMapViewDelegate {
         self.isRecording = false
         self.isSaving = true
         
-        self.mutablePolyline?.removeAllPoints()
-        self.mutableView?.referenceDidChange()
+        self.mapView.remove(self.polyline)
+        self.polyline = nil
+        
         // 全程请求trace
         self.mapView.removeOverlays(self.tracedPolylines)
         self.queryTrace(withLocations: self.currentRecord!.locations, withSaving: true)
@@ -255,6 +249,19 @@ class ViewController: UIViewController, MAMapViewDelegate {
         return polyline
     }
     
+    func coordinatesFromLocationArray(locations: [CLLocation]?) -> [CLLocationCoordinate2D]? {
+        if locations == nil || locations!.count == 0 {
+            return nil
+        }
+        
+        var coordinates = [CLLocationCoordinate2D]()
+        for location in locations! {
+            coordinates.append(location.coordinate)
+        }
+        
+        return coordinates
+    }
+
     func updateUserlocationTitle(withDistance distance: Double) {
         self.totalTraceLength += distance
         self.mapView.userLocation.title = String(format: "距离：%.0f 米", self.totalTraceLength)
@@ -299,22 +306,33 @@ class ViewController: UIViewController, MAMapViewDelegate {
         // filter the result
         if userLocation.location.horizontalAccuracy < 100.0 {
             
-            addLocation(location: userLocation.location)
-
-            self.currentRecord!.addLocation(userLocation.location)
-            self.mutablePolyline?.appendPoint(MAMapPointForCoordinate(userLocation.location.coordinate))
-            self.mutableView?.referenceDidChange()
+            let lastDis = userLocation.location.distance(from: self.currentRecord!.endLocation())
             
-            self.mapView.setCenter(userLocation.location.coordinate, animated: true)
-            // trace
-            self.tempTraceLocations.append(userLocation.location)
-            if self.tempTraceLocations.count >= kTempTraceLocationCount {
-                self.queryTrace(withLocations: self.tempTraceLocations, withSaving: false)
-                self.tempTraceLocations.removeAll()
-                // 把最后一个再add一遍，否则会有缝隙
+            if lastDis < 0.0 || lastDis > 10 {
+                addLocation(location: userLocation.location)
+                
+                if self.polyline == nil {
+                    self.polyline = MAPolyline.init(coordinates: nil, count: 0)
+                    self.mapView.add(self.polyline!)
+                }
+                
+                var coordinates = coordinatesFromLocationArray(locations: self.currentRecord!.locations)
+                
+                if coordinates != nil {
+                    self.polyline!.setPolylineWithCoordinates(&coordinates!, count: coordinates!.count)
+                }
+                
+                self.mapView.setCenter(userLocation.location.coordinate, animated: true)
+                // trace
                 self.tempTraceLocations.append(userLocation.location)
+                if self.tempTraceLocations.count >= kTempTraceLocationCount {
+                    self.queryTrace(withLocations: self.tempTraceLocations, withSaving: false)
+                    self.tempTraceLocations.removeAll()
+                    // 把最后一个再add一遍，否则会有缝隙
+                    self.tempTraceLocations.append(userLocation.location)
+                }
+
             }
-            
         }
         
         var speed = location!.speed
@@ -341,11 +359,11 @@ class ViewController: UIViewController, MAMapViewDelegate {
     }
     
     func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
-        if (overlay is MAMutablePolyline) {
-            let view = MAMutablePolylineRenderer(mutablePolyline: overlay as! MAMutablePolyline!)
+        if self.polyline != nil && overlay.isEqual(self.polyline!) {
+            let view = MAPolylineRenderer(polyline: overlay as! MAPolyline!)
             view?.lineWidth = 5.0
             view?.strokeColor = UIColor.red
-            self.mutableView = view
+            
             return view
         }
         if (overlay is MAPolyline) {
