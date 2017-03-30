@@ -11,13 +11,12 @@
 | 类    | 接口  | 说明   | 版本  |
 | -----|:-----:|:-----:|:-----:|
 | MovingAnnotationView	| - (void)addTrackingAnimationForPoints:(NSArray *)points duration:(CFTimeInterval)duration; | 继承自MAAnnotationView，实现了添加动画添加经纬度 | --- |
-| MAMutablePolyline	| - (void)appendPoint:(MAMapPoint)point; | 自定义Overlay，实现了动态添加点并绘制的功能。 | --- |
-| MAMutablePolylineRenderer	| --- | 继承自MAOverlayPathRenderer，对应MAMutablePolyline的renderer。 | --- |
 | MATraceManager	| - (NSOperation *)queryProcessedTraceWith:type:processingCallback:finishCallback:failedCallback: | 获取纠偏后的经纬度点集 | v4.3.0 |
 
 
 ## 核心难点 ##
 
+`Objective-C`
 ```
 /* 定位回调 */
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
@@ -45,15 +44,26 @@
             
             [self.currentRecord addLocation:userLocation.location];
             
+            if (self.polyline == nil)
+            {
+                self.polyline = [MAPolyline polylineWithCoordinates:NULL count:0];
+                [self.mapView addOverlay:self.polyline];
+            }
+
+            NSUInteger count = 0;
             
-            [self.mutablePolyline appendPoint: MAMapPointForCoordinate(userLocation.location.coordinate)];
-            [self.mutableView referenceDidChange];
+            CLLocationCoordinate2D *coordinates = [self coordinatesFromLocationArray:self.locationsArray count:&count];
+            if (coordinates != NULL)
+            {
+                [self.polyline setPolylineWithCoordinates:coordinates count:count];
+                free(coordinates);
+            }
+            
             [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
-            
             
             // trace
             [self.tempTraceLocations addObject:userLocation.location];
-            if (self.tempTraceLocations.count >= 30)
+            if (self.tempTraceLocations.count >= kTempTraceLocationCount)
             {
                 [self queryTraceWithLocations:self.tempTraceLocations withSaving:NO];
                 [self.tempTraceLocations removeAllObjects];
@@ -66,9 +76,7 @@
     
     [self.statusView showStatusWith:userLocation.location];
 }
-```
 
-```
 /* 对记录的轨迹进行纠偏. */
 - (void)queryTraceWithLocations:(NSArray<CLLocation *> *)locations withSaving:(BOOL)saving
 {
@@ -115,4 +123,100 @@
         }
     }];
 }
+```
+
+`Swift`
+```
+func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
+    if !updatingLocation {
+        return
+    }
+    
+    let location: CLLocation? = userLocation.location
+    
+    if location == nil || !isRecording {
+        return
+    }
+    
+    // filter the result
+    if userLocation.location.horizontalAccuracy < 100.0 {
+        
+        let lastDis = userLocation.location.distance(from: self.currentRecord!.endLocation())
+        
+        if lastDis < 0.0 || lastDis > 10 {
+            addLocation(location: userLocation.location)
+            
+            if self.polyline == nil {
+                self.polyline = MAPolyline.init(coordinates: nil, count: 0)
+                self.mapView.add(self.polyline!)
+            }
+            
+            var coordinates = coordinatesFromLocationArray(locations: self.currentRecord!.locations)
+            
+            if coordinates != nil {
+                self.polyline!.setPolylineWithCoordinates(&coordinates!, count: coordinates!.count)
+            }
+            
+            self.mapView.setCenter(userLocation.location.coordinate, animated: true)
+            // trace
+            self.tempTraceLocations.append(userLocation.location)
+            if self.tempTraceLocations.count >= kTempTraceLocationCount {
+                self.queryTrace(withLocations: self.tempTraceLocations, withSaving: false)
+                self.tempTraceLocations.removeAll()
+                // 把最后一个再add一遍，否则会有缝隙
+                self.tempTraceLocations.append(userLocation.location)
+            }
+
+        }
+    }
+    
+    var speed = location!.speed
+    if speed < 0.0 {
+        speed = 0.0
+    }
+    
+    let infoArray: [(String, String)] = [
+        ("coordinate", NSString(format: "<%.4f, %.4f>", location!.coordinate.latitude, location!.coordinate.longitude) as String),
+        ("speed", NSString(format: "%.2fm/s(%.2fkm/h)", speed, speed * 3.6) as String),
+        ("accuracy", "\(location!.horizontalAccuracy)m"),
+        ("altitude", NSString(format: "%.2fm", location!.altitude) as String)]
+    
+    statusView!.showStatusInfo(info: infoArray)
+}
+
+* 对记录的轨迹进行纠偏. */
+func queryTrace(withLocations locations: [CLLocation], withSaving saving: Bool) {
+    var mArr = [MATraceLocation]()
+    for loc: CLLocation in locations {
+        let tLoc = MATraceLocation()
+        tLoc.loc = loc.coordinate
+        tLoc.speed = loc.speed * 3.6
+        //m/s  转 km/h
+        tLoc.time = loc.timestamp.timeIntervalSince1970 * 1000
+        tLoc.angle = loc.course
+        mArr.append(tLoc)
+    }
+
+    weak var weakSelf = self
+    
+    _ = traceManager.queryProcessedTrace(with: mArr, type: AMapCoordinateType(rawValue: UInt.max)!, processingCallback: { (index:Int32, arr:[MATracePoint]?) in
+        
+    }, finishCallback: { (arr:[MATracePoint]?, distance:Double) in
+        if saving {
+            weakSelf?.totalTraceLength = 0.0
+            weakSelf?.currentRecord?.updateTracedLocations(arr)
+            weakSelf?.saveRoute()
+            weakSelf?.isSaving = false
+            weakSelf?.showTip(tip: "recording save done")
+        }
+        weakSelf?.updateUserlocationTitle(withDistance: distance)
+        weakSelf?.addFullTrace(arr)
+        
+    }, failedCallback: { (errCode:Int32, errDesc:String?) in
+        print(errDesc ?? "error")
+        weakSelf?.isSaving = false
+    })
+        
+}
+
 ```
