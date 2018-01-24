@@ -104,9 +104,10 @@
 {
     if ([overlay isKindOfClass:[MAPolyline class]])
     {
-        MAPolylineRenderer *view = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
-        view.lineWidth = 4.0;
-        view.strokeColor = [UIColor redColor];
+        MAMultiColoredPolylineRenderer *view = [[MAMultiColoredPolylineRenderer alloc] initWithPolyline:overlay];
+        view.gradient = YES;
+        view.lineWidth = 8;
+        view.strokeColors = @[[UIColor greenColor], [UIColor redColor]];
         
         return view;
     }
@@ -210,7 +211,8 @@
         coords[i] = CLLocationCoordinate2DMake(tracePoints[i].latitude, tracePoints[i].longitude);
     }
     
-    MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coords count:tracePoints.count];
+    NSInteger drawIndex = tracePoints.count - 1;
+    MAMultiPolyline *polyline = [MAMultiPolyline polylineWithCoordinates:coords count:tracePoints.count drawStyleIndexes:@[@(0), @(drawIndex)]];
     [self.mapView addOverlay:polyline];
     
     [self.mapView showOverlays:self.mapView.overlays edgePadding:UIEdgeInsetsMake(200, 50, 200, 50) animated:NO];
