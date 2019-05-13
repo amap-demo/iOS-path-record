@@ -120,7 +120,7 @@ class ViewController: UIViewController, MAMapViewDelegate {
         }
     }
     
-    func actionHistory() {
+    @objc func actionHistory() {
         print("actionHistory")
         
         let historyController = RecordViewController(nibName: nil, bundle: nil)
@@ -129,7 +129,7 @@ class ViewController: UIViewController, MAMapViewDelegate {
         navigationController!.pushViewController(historyController, animated: true)
     }
     
-    func actionRecordAndStop() {
+    @objc func actionRecordAndStop() {
         print("actionRecord")
         
         isRecording = !isRecording
@@ -156,7 +156,7 @@ class ViewController: UIViewController, MAMapViewDelegate {
         
     }
     
-    func actionLocation(sender: UIButton) {
+    @objc func actionLocation(sender: UIButton) {
         print("actionLocation")
         
         if mapView!.userTrackingMode == MAUserTrackingMode.follow {
@@ -205,7 +205,7 @@ class ViewController: UIViewController, MAMapViewDelegate {
 
         weak var weakSelf = self
         
-        _ = traceManager.queryProcessedTrace(with: mArr, type: AMapCoordinateType(rawValue: UInt.max)!, processingCallback: { (index:Int32, arr:[MATracePoint]?) in
+        _ = traceManager.queryProcessedTrace(with: mArr, type: AMapCoordinateType(rawValue: Int(UInt.max))!, processingCallback: { (index:Int32, arr:[MATracePoint]?) in
             
         }, finishCallback: { (arr:[MATracePoint]?, distance:Double) in
             if saving {

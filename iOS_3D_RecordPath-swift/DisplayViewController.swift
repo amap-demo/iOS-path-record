@@ -87,7 +87,7 @@ class DisplayViewController: UIViewController, MAMapViewDelegate {
     
     //MARK:- Helpers
     
-    func actionPlayAndStop() {
+    @objc func actionPlayAndStop() {
         print("actionPlayAndStop")
         
         if route == nil || traceCoordinates.count == 0 {

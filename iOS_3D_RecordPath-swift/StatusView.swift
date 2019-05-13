@@ -56,7 +56,7 @@ class StatusView: UIView {
         addSubview(control)
     }
     
-    func actionSwitch() {
+    @objc func actionSwitch() {
         isOpen = !isOpen
         
         if isOpen {
